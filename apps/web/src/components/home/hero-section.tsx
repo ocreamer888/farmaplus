@@ -28,22 +28,16 @@ export function HeroSection() {
           />
         </div>
 
-        <p className="max-w-[520px] text-xl font-medium tracking-[-0.4px] text-[#e0ddcf] md:text-[26px] md:leading-[28.6px] md:tracking-[-0.84px]">
+        <p className="max-w-[580px] text-xl font-medium tracking-[-0.4px] text-[#e0ddcf] md:text-[26px] md:leading-[28.6px] md:tracking-[-0.84px]">
           Telemedicina, farmacia 24/7 y farmacia express en Huacas, Guanacaste.
         </p>
 
         <div className="flex w-full max-w-[376px] items-center gap-1 rounded-[10px] p-1">
           <WhatsAppButton
-            className="flex h-[56px] w-1/2 items-center justify-center rounded-[62px] bg-[#408733] text-[15px] text-[#eceadd]"
+            className="flex h-[56px] w-full items-center justify-center rounded-[62px] bg-[#408733] text-[15px] text-[#eceadd]"
           >
             WhatsApp
           </WhatsAppButton>
-          <button
-            type="button"
-            className="flex h-[56px] w-1/2 items-center justify-center rounded-[62px] bg-[#21401d] text-[15px] text-[#fffff3]"
-          >
-            Browse
-          </button>
         </div>
 
         <Image src="/pill-triangle.webp" alt="" width={146} height={146} className="size-[146px]" />

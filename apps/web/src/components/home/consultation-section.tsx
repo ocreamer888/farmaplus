@@ -18,7 +18,7 @@ export function ConsultationSection() {
             <br />
             a la distancia
             <br />
-            de un click.
+            de un click
           </h2>
 
           <p className="px-8 max-w-[492px] text-base text-[#e0ddcf] md:text-[20px] md:leading-[28.6px] md:tracking-[-0.84px]">
