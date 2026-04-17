@@ -137,6 +137,8 @@ export function StatementSection() {
                 alt="FarmaPlus icono"
                 width={527}
                 height={265}
+                loading="lazy"
+                quality={100}
                 className="h-auto w-[260px] md:w-[420px] lg:w-[527px]"
               />
             </div>
