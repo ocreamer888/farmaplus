@@ -24,7 +24,7 @@ export function HeroSection() {
             alt=""
             width={108}
             height={108}
-            className="absolute -right-8 top-16 hidden size-[72px] md:block md:size-[108px]"
+            className="absolute -right-8 top-16 hidden size-[72px] md:block md:size-[108px] hidden md:block"
           />
         </div>
 
