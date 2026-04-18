@@ -68,15 +68,16 @@ export function ContactSection() {
             </div>
           </div>
 
-          <div className="flex w-full flex-col items-center justify-center rounded-[42px] border border-[#e0ddcf]/20 bg-[#222721]/40 p-8 backdrop-blur-sm md:p-10">
+          <div className="flex w-full h-full flex-col items-start justify-between rounded-[42px] border border-[#e0ddcf]/20 bg-[#222721]/40 p-8 backdrop-blur-sm md:p-10">
             <h3 className="mb-8 text-center text-2xl font-light text-[#fffff3] md:text-3xl">
               Datos de contacto
             </h3>
-            <div className="flex w-full max-w-lg flex-col gap-6 text-[#e0ddcf]">
+            <div className="flex w-full flex-col h-full justify-center gap-6 text-[#e0ddcf]">
               <div className="flex w-full flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
                 <p className="text-xs tracking-wider text-[#e0ddcf]/60">
                   Ubicación
                 </p>
+                <span className="mx-3 flex-1 border-b border-dotted border-[#408733]/40" />
                 <p className="text-base md:text-lg">{CONTACT.address}</p>
               </div>
 
@@ -112,8 +113,9 @@ export function ContactSection() {
                 <p className="text-xs tracking-wider text-[#e0ddcf]/60">
                   WhatsApp
                 </p>
+                <span className="mx-3 flex-1 border-b border-dotted border-[#408733]/40" />
                 <WhatsAppButton
-              className="flex h-[56px] w-1/2 items-center justify-center rounded-[62px] bg-[#408733] text-[15px] text-[#eceadd]">
+              className="flex h-[56px] w-[70%] items-center justify-center rounded-[62px] bg-[#408733] text-[15px] text-[#eceadd]">
                 WhatsApp
               </WhatsAppButton>
               </div>
