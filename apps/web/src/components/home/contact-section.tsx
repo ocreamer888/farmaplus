@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { CONTACT, CONTACT_SERVICE_ROWS } from "./constants";
 import { WhatsAppButton } from "./whatsapp-button";
 
