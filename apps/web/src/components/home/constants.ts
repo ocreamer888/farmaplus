@@ -1,10 +1,7 @@
-export const HEADER_LOGO_SRC = encodeURI(
-  "/trumprx.gov (English-US) by html.to.design ❤️ FREE version - 14/04/Capa_1.png",
-);
+export const HEADER_LOGO_SRC = "/farmaplus-logo-white.png";
 
-export const SECTION_LOGO_SRC = encodeURI(
-  "/trumprx.gov (English-US) by html.to.design ❤️ FREE version - 14/04/Isolation_Mode.svg",
-);
+export const SECTION_LOGO_SRC = "/farmaplus-logo-w.svg";
+
 
 /** Verified from brand messaging (Huacas, Guanacaste). Add phone/email when operational details are confirmed. */
 export const CONTACT: {

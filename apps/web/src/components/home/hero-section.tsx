@@ -33,9 +33,7 @@ export function HeroSection() {
         </p>
 
         <div className="flex w-full max-w-[376px] items-center gap-1 rounded-[10px] p-1">
-          <WhatsAppButton
-            className="flex h-[56px] w-full items-center justify-center rounded-[62px] bg-[#408733] text-[15px] text-[#eceadd]"
-          >
+          <WhatsAppButton className="flex h-[56px] w-full items-center justify-center rounded-[62px] bg-[#408733] hover:bg-[#336629] text-[15px] text-[#eceadd]" aria-label="Abrir WhatsApp">
             WhatsApp
           </WhatsAppButton>
         </div>

@@ -18,7 +18,7 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <WhatsAppButton
-            className="rounded-full border border-[#e0ddcf] backdrop-blur px-4 py-2 text-sm text-[#e0ddcf] md:px-[13px] md:py-4 md:text-[20px] md:leading-[26px]"
+            className="rounded-full border border-[#e0ddcf] hover:border-[#e0ddcf]/60 backdrop-blur px-4 py-2 text-sm text-[#e0ddcf] md:px-[13px] md:py-4 md:text-[20px] md:leading-[26px]"
           >
             Contacto
           </WhatsAppButton>

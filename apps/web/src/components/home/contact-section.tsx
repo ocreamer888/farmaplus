@@ -33,7 +33,7 @@ export function ContactSection() {
               </h3>
               <div className="space-y-4">
                 {CONTACT_SERVICE_ROWS.map((row) => (
-                  <a href={row.whatsappLink} target="_blank" rel="noreferrer">
+                  <a key={row.label} href={row.whatsappLink} target="_blank" rel="noreferrer">
                   <div
                     key={row.label}
                     className="flex items-center justify-between text-[#e0ddcf]"
