@@ -35,6 +35,7 @@ export function ContactSection() {
               </h3>
               <div className="space-y-4">
                 {CONTACT_SERVICE_ROWS.map((row) => (
+                  <a href={row.whatsappLink} target="_blank" rel="noreferrer">
                   <div
                     key={row.label}
                     className="flex items-center justify-between text-[#e0ddcf]"
@@ -45,8 +46,9 @@ export function ContactSection() {
                     <span className="mx-3 flex-1 border-b border-dotted border-[#408733]/40" />
                     <span className="text-sm font-light md:text-base">
                       {row.detail}
-                    </span>
-                  </div>
+                      </span>
+                    </div>
+                  </a>
                 ))}
               </div>
             </div>
