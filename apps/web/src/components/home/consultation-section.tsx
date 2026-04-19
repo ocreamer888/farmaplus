@@ -32,7 +32,7 @@ export function ConsultationSection() {
           </WhatsAppButton>
         </div>
 
-        <div className="relative flex w-full justify-center lg:flex-1 lg:justify-center">
+        <div className="relative flex w-full justify-center mt-16 lg:flex-1 lg:justify-center">
           <Image
             src="/dr-javier-leon-farmaplus-huacas.png"
             alt="Doctor Javier Leon - FarmaPlus Huacas"
@@ -40,7 +40,7 @@ export function ConsultationSection() {
             height={1008}
             loading="lazy"
             quality={100}
-            className="h-auto w-full max-w-[400px] lg:max-w-[400px]"
+            className="h-auto w-full max-w-[300px] lg:max-w-[400px]"
           />
         </div>
       </div>
