@@ -22,7 +22,7 @@ export function ConsultationSection() {
           </h2>
 
           <p className="px-8 max-w-[492px] text-base text-[#e0ddcf] md:text-[20px] md:leading-[28.6px] md:tracking-[-0.84px]">
-            Telemedicina, farmacia 24/7 y farmacia express en Huacas, Guanacaste.
+            Qué tu salud no espere. Nuestro equipo de médicos te atiende en línea para resolver tus dudas y brindarte la mejor atención.
           </p>
 
           <WhatsAppButton
