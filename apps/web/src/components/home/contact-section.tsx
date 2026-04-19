@@ -27,7 +27,10 @@ export function ContactSection() {
 
         <div className="flex flex-col gap-4">
           <div className="flex w-full flex-col items-stretch justify-between gap-4 md:flex-row">
-            <div className="flex h-full min-h-[280px] flex-1 flex-col justify-between rounded-[42px] border border-[#e0ddcf]/20 bg-[#222721]/40 p-8 backdrop-blur-sm md:p-10">
+            <div className="flex h-full min-h-[280px] flex-1 flex-col justify-between rounded-[42px] border border-[#e0ddcf]/20 bg-[#222721]/40 p-8 backdrop-blur-sm md:p-10" style={{
+          backgroundImage:
+            "linear-gradient(344deg, rgba(33, 64, 29, 0.2) 14.951%, rgba(76, 120, 57, 0.2) 81.354%)",
+        }}>
               <h3 className="mb-8 flex w-full justify-center text-2xl font-light text-[#fffff3] md:justify-start">
                 Servicios
               </h3>
@@ -66,7 +69,10 @@ export function ContactSection() {
             </div>
           </div>
 
-          <div className="flex w-full h-full flex-col items-start justify-between rounded-[42px] border border-[#e0ddcf]/20 bg-[#222721]/40 p-8 backdrop-blur-sm md:p-10">
+          <div className="flex w-full h-full flex-col items-start justify-between rounded-[42px] border border-[#e0ddcf]/20 bg-[#222721]/40 p-8 backdrop-blur-sm md:p-10" style={{
+          backgroundImage:
+            "linear-gradient(344deg, rgba(33, 64, 29, 0.2) 14.951%, rgba(76, 120, 57, 0.2) 81.354%)",
+        }}>
             <h3 className="mb-8 text-center text-2xl font-light text-[#fffff3] md:text-3xl">
               Datos de contacto
             </h3>
