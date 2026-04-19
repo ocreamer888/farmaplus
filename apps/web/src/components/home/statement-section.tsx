@@ -42,12 +42,16 @@ export function StatementSection() {
         yPercent: -50,
       });
 
+      // Same in/out duration for every paragraph and the logo so scroll share is even (4 × 2 halves).
+      const half = 1;
+
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: "+=220%",
-          scrub: 1,
+          // Longer scroll distance = slower scrub so each line stays readable.
+          end: "+=420%",
+          scrub: 1.25,
           pin: stageRef.current,
           pinSpacing: true,
           anticipatePin: 1,
@@ -58,7 +62,7 @@ export function StatementSection() {
         timeline.to(paragraph, {
           autoAlpha: 1,
           y: 0,
-          duration: 1,
+          duration: half,
           ease: "power2.out",
         });
 
@@ -66,34 +70,34 @@ export function StatementSection() {
           timeline.to(paragraph, {
             autoAlpha: 0,
             y: -24,
-            duration: 1,
+            duration: half,
             ease: "power2.inOut",
           });
         }
       });
 
+      const lastParagraph = paragraphs[paragraphs.length - 1]!;
+
       timeline
-        .to(paragraphs[paragraphs.length - 1], {
+        .to(lastParagraph, {
           autoAlpha: 0,
           y: -24,
-          duration: 1,
+          duration: half,
           ease: "power2.inOut",
         })
         .to(logo, {
           autoAlpha: 1,
           y: 0,
-          duration: 1,
+          duration: half,
           ease: "power2.out",
         })
-        .to({}, { duration: 0.4 })
         .to(logo, {
           autoAlpha: 0,
-          y: -16,
-          duration: 0.8,
+          y: -24,
+          duration: half,
           ease: "power2.inOut",
         })
-        .set(logo, { autoAlpha: 0, clearProps: "transform" })
-        .to({}, { duration: 0.8 });
+        .set(logo, { autoAlpha: 0, clearProps: "transform" });
     }, sectionRef);
 
     return () => {
@@ -107,7 +111,7 @@ export function StatementSection() {
         ref={sectionRef}
         className="mx-auto w-full max-w-[1500px]"
       >
-        <div className="relative h-[260vh]">
+        <div className="relative h-[500vh]">
           <div
             ref={stageRef}
             className="relative flex h-screen items-center justify-center text-center"
