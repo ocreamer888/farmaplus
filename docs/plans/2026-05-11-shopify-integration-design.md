@@ -497,18 +497,17 @@ All follow the existing `statement-section.tsx` pattern (`useEffect` + `gsap.con
 [ ] 8.  lib/shopify/queries/collection.ts
 [ ] 9.  lib/shopify/queries/search.ts
 [ ] 10. lib/shopify/mutations/cart.ts
-[ ] 11. app/products/page.tsx + ProductGrid + ProductCard + ProductCardSkeleton
-[ ] 12. app/products/[handle]/page.tsx + ProductDetail + VariantSelector +
-         PriceDisplay + ProductImageGallery + QuantityStepper + AddToCartButton
-[ ] 13. app/collections/[handle]/page.tsx + CollectionNav + CollectionNavSkeleton
-[ ] 14. CartContext + CartProvider + providers.tsx + ErrorToast
-[ ] 15. src/middleware.ts — cart cookie
-[ ] 16. mutations — Server Actions wired to CartContext
-[ ] 17. CartDrawer + CartItem + CartLineList + CartSummary + MiniCartButton
-[ ] 18. app/cart/page.tsx
-[ ] 19. app/search/page.tsx + SearchBar
+[ ] 11. CartContext + CartProvider + providers.tsx + ErrorToast  ← must precede shared components
+[ ] 12. middleware.ts — cart cookie (passthrough stub)
+[ ] 13. Shared components: QuantityStepper, Breadcrumbs, MiniCartButton + header wiring
+[ ] 14. app/products/page.tsx + ProductGrid + ProductCard + ProductCardSkeleton
+[ ] 15. app/products/[handle]/page.tsx + PriceDisplay + VariantSelector +
+         ProductImageGallery + QuantityAndCart + AddToCartButton
+[ ] 16. CartDrawer + CartItem + CartLineList + CartSummary
+[ ] 17. app/cart/page.tsx + CartPageClient
+[ ] 18. app/search/page.tsx + SearchBar
+[ ] 19. app/collections/[handle]/page.tsx + CollectionNav + CollectionNavSkeleton
 [ ] 20. app/api/revalidate/route.ts — webhook + HMAC + revalidateTag
-[ ] 21. Breadcrumbs + header MiniCartButton integration
-[ ] 22. Suspense boundaries + skeleton loaders audit
-[ ] 23. Core Web Vitals + bundle size audit
+[ ] 21. Suspense boundaries + skeleton loaders audit
+[ ] 22. Core Web Vitals + bundle size audit
 ```

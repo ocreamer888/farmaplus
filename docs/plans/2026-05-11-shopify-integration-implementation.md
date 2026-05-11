@@ -248,11 +248,13 @@ export async function shopifyFetch<T>({
   variables,
   cache = "force-cache",
   tags,
+  revalidate,
 }: {
   query: string;
   variables?: Record<string, unknown>;
   cache?: RequestCache;
   tags?: string[];
+  revalidate?: number;
 }): Promise<ShopifyResponse<T>> {
   const domain = process.env.SHOPIFY_STORE_DOMAIN;
   const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
@@ -273,7 +275,14 @@ export async function shopifyFetch<T>({
     },
     body: JSON.stringify({ query, variables }),
     cache,
-    ...(tags ? { next: { tags } } : {}),
+    ...(tags || revalidate !== undefined
+      ? {
+          next: {
+            ...(tags && { tags }),
+            ...(revalidate !== undefined && { revalidate }),
+          },
+        }
+      : {}),
   });
 
   if (!response.ok) {
@@ -847,9 +856,9 @@ git commit -m "feat: add Shopify search query with accent normalization"
 
 **Step 1: Write the file**
 
-```ts
-"use server";
+Note: `"use server"` is added **inline** to each mutation function, not at the file top. `getCart` is a server-side query — it does not need the directive and should not be callable as a Server Action from the client.
 
+```ts
 import { cookies } from "next/headers";
 import { shopifyFetch } from "../client";
 import type { Cart } from "../types";
@@ -943,6 +952,7 @@ function setCartCookie(cartId: string): void {
   });
 }
 
+// No "use server" — called from Server Components and Server Actions directly
 export async function getCart(id: string): Promise<Cart | null> {
   const { data } = await shopifyFetch<{ cart: Cart | null }>({
     query: GET_CART_QUERY,
@@ -953,6 +963,7 @@ export async function getCart(id: string): Promise<Cart | null> {
 }
 
 export async function createCart(): Promise<Cart> {
+  "use server";
   const { data } = await shopifyFetch<{
     cartCreate: { cart: Cart; userErrors: { field: string[]; message: string }[] };
   }>({
@@ -969,6 +980,7 @@ export async function addToCart(
   variantId: string,
   quantity: number
 ): Promise<Cart> {
+  "use server";
   const cookieStore = cookies();
   let cartId = cookieStore.get("cartId")?.value;
 
@@ -995,6 +1007,7 @@ export async function updateCartLine(
   lineId: string,
   quantity: number
 ): Promise<Cart> {
+  "use server";
   const cartId = cookies().get("cartId")?.value;
   if (!cartId) throw new Error("No cart found");
 
@@ -1010,6 +1023,7 @@ export async function updateCartLine(
 }
 
 export async function removeCartLine(lineId: string): Promise<Cart> {
+  "use server";
   const cartId = cookies().get("cartId")?.value;
   if (!cartId) throw new Error("No cart found");
 
@@ -1260,15 +1274,23 @@ export function ErrorToast() {
 
 **Step 3: Create `providers.tsx`**
 
+`Providers` accepts `cartId` as a prop (read server-side in `layout.tsx`) and forwards it to `CartProvider`. This is required because the `cartId` cookie is HttpOnly — it is invisible to `document.cookie` in the browser.
+
 ```tsx
 "use client";
 
 import { CartProvider } from "./cart-context";
 import { ErrorToast } from "./error-toast";
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({
+  children,
+  cartId,
+}: {
+  children: React.ReactNode;
+  cartId: string | undefined;
+}) {
   return (
-    <CartProvider>
+    <CartProvider cartId={cartId}>
       {children}
       <ErrorToast />
     </CartProvider>
@@ -1276,11 +1298,52 @@ export function Providers({ children }: { children: React.ReactNode }) {
 }
 ```
 
-**Step 4: Update `app/layout.tsx`**
+**Step 4: Update `cart-context.tsx` to accept `cartId` prop**
+
+Replace the `document.cookie` hydration logic with a prop-based approach:
+
+```tsx
+// CartProvider now accepts cartId as a prop
+export function CartProvider({
+  children,
+  cartId,
+}: {
+  children: React.ReactNode;
+  cartId: string | undefined;
+}) {
+  const [state, dispatch] = useReducer(cartReducer, {
+    cart: null,
+    cartStatus: cartId ? "loading" : "idle", // skip loading if no cart exists
+    error: null,
+    isOpen: false,
+  });
+
+  // Hydrate cart on mount using the server-provided cartId
+  useEffect(() => {
+    if (!cartId) return;
+
+    getCart(cartId)
+      .then((cart) => {
+        if (cart) {
+          dispatch({ type: "SET_CART", cart });
+        } else {
+          dispatch({ type: "SET_ERROR", error: null }); // stale cookie — cart expired
+        }
+      })
+      .catch(() => dispatch({ type: "SET_ERROR", error: null }));
+  }, [cartId]);
+
+  // ... rest of provider unchanged
+```
+
+**Step 5: Update `app/layout.tsx`**
+
+`layout.tsx` remains a Server Component. It reads the cookie via `cookies()` from `next/headers` and passes `cartId` to `<Providers>`.
 
 ```tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { cookies } from "next/headers";
 import "./globals.css";
 import { Providers } from "@/components/shop/providers";
 
@@ -1294,22 +1357,24 @@ export const metadata: Metadata = {
   description: "FarmaPlus web application",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cartId = (await cookies()).get("cartId")?.value;
+
   return (
     <html lang="es">
       <body className={`${inter.variable} min-h-screen font-sans antialiased`}>
-        <Providers>{children}</Providers>
+        <Providers cartId={cartId}>{children}</Providers>
       </body>
     </html>
   );
 }
 ```
 
-Note: `lang` changed from `"en"` to `"es"` — the UI is in Spanish.
+Note: `lang` changed from `"en"` to `"es"` — the UI is in Spanish. `RootLayout` becomes `async` to await `cookies()`.
 
 **Step 5: Type-check**
 
