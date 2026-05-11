@@ -60,7 +60,8 @@ apps/web/src/
 │       │   ├── collection.ts
 │       │   └── search.ts
 │       └── mutations/
-│           └── cart.ts
+│           ├── cart.ts           ← getCart() — no directive, server query
+│           └── cart-actions.ts   ← "use server" at top, all mutations
 └── middleware.ts                     ← cart cookie management
 ```
 
@@ -240,17 +241,24 @@ function formatDualPrice(money: Money, rate: number): { crc: string; usd: string
 
 "Load More" passes `endCursor` as `after` on the next fetch. No offset pagination — Shopify does not support it.
 
-### Cart mutations (`mutations/cart.ts`)
+### Cart operations (split across two files)
+
+**`mutations/cart.ts`** — no directive, server query:
+
+| Function | Shopify operation |
+|---|---|
+| `getCart(id)` | `query cart` — called from `layout.tsx`, not a Server Action |
+
+**`mutations/cart-actions.ts`** — `"use server"` at file top:
 
 | Server Action | Shopify operation |
 |---|---|
-| `getCart(id)` | `query cart` |
 | `createCart()` | `cartCreate` |
-| `addToCart(cartId, lines)` | `cartLinesAdd` |
-| `updateCartLine(cartId, lines)` | `cartLinesUpdate` |
-| `removeCartLine(cartId, lineIds)` | `cartLinesRemove` |
+| `addToCart(variantId, quantity)` | `cartLinesAdd` |
+| `updateCartLine(lineId, quantity)` | `cartLinesUpdate` |
+| `removeCartLine(lineId)` | `cartLinesRemove` |
 
-All five use `cache: 'no-store'` internally.
+All use `cache: 'no-store'` internally. `CART_FRAGMENT` is exported from `cart.ts` and imported by `cart-actions.ts` — defined once, no duplication.
 
 ### Required env vars
 

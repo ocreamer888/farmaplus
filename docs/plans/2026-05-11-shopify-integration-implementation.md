@@ -849,21 +849,23 @@ git commit -m "feat: add Shopify search query with accent normalization"
 
 ---
 
-## Task 10: `lib/shopify/mutations/cart.ts`
+## Task 10: `lib/shopify/mutations/cart.ts` + `cart-actions.ts`
 
 **Files:**
-- Create: `apps/web/src/lib/shopify/mutations/cart.ts`
+- Create: `apps/web/src/lib/shopify/mutations/cart.ts` — `getCart` only, no directive
+- Create: `apps/web/src/lib/shopify/mutations/cart-actions.ts` — `"use server"` at file top, all mutations
 
-**Step 1: Write the file**
+**Why two files:** Inline `"use server"` inside a function body is only valid if the enclosing file also has the file-level directive. Without the file-level directive it is silently ignored — mutations appear to run but are never registered as Server Actions and cannot be called from the client. The clean split is: query in one file, actions in another.
 
-Note: `"use server"` is added **inline** to each mutation function, not at the file top. `getCart` is a server-side query — it does not need the directive and should not be callable as a Server Action from the client.
+**Step 1: Write `cart.ts`** (query only — no directive)
+
+The shared `CART_FRAGMENT` lives here and is exported so `cart-actions.ts` can import it without duplication.
 
 ```ts
-import { cookies } from "next/headers";
 import { shopifyFetch } from "../client";
 import type { Cart } from "../types";
 
-const CART_FRAGMENT = `
+export const CART_FRAGMENT = `
   id
   checkoutUrl
   totalQuantity
@@ -897,6 +899,27 @@ const GET_CART_QUERY = `
     cart(id: $id) { ${CART_FRAGMENT} }
   }
 `;
+
+// No "use server" — called from layout.tsx (Server Component) to hydrate CartProvider
+export async function getCart(id: string): Promise<Cart | null> {
+  const { data } = await shopifyFetch<{ cart: Cart | null }>({
+    query: GET_CART_QUERY,
+    variables: { id },
+    cache: "no-store",
+  });
+  return data.cart;
+}
+```
+
+**Step 2: Write `cart-actions.ts`** (`"use server"` at file top — required for Server Action registration)
+
+```ts
+"use server";
+
+import { cookies } from "next/headers";
+import { shopifyFetch } from "../client";
+import { CART_FRAGMENT } from "./cart";
+import type { Cart } from "../types";
 
 const CREATE_CART_MUTATION = `
   mutation CartCreate($input: CartInput!) {
@@ -934,16 +957,16 @@ const REMOVE_LINES_MUTATION = `
   }
 `;
 
-function assertNoUserErrors(
-  userErrors: { field: string[]; message: string }[]
-): void {
+type UserError = { field: string[]; message: string };
+
+function assertNoUserErrors(userErrors: UserError[]): void {
   if (userErrors.length > 0) {
     throw new Error(userErrors.map((e) => e.message).join(", "));
   }
 }
 
-function setCartCookie(cartId: string): void {
-  cookies().set("cartId", cartId, {
+async function setCartCookie(cartId: string): Promise<void> {
+  (await cookies()).set("cartId", cartId, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
@@ -952,27 +975,16 @@ function setCartCookie(cartId: string): void {
   });
 }
 
-// No "use server" — called from Server Components and Server Actions directly
-export async function getCart(id: string): Promise<Cart | null> {
-  const { data } = await shopifyFetch<{ cart: Cart | null }>({
-    query: GET_CART_QUERY,
-    variables: { id },
-    cache: "no-store",
-  });
-  return data.cart;
-}
-
 export async function createCart(): Promise<Cart> {
-  "use server";
   const { data } = await shopifyFetch<{
-    cartCreate: { cart: Cart; userErrors: { field: string[]; message: string }[] };
+    cartCreate: { cart: Cart; userErrors: UserError[] };
   }>({
     query: CREATE_CART_MUTATION,
     variables: { input: {} },
     cache: "no-store",
   });
   assertNoUserErrors(data.cartCreate.userErrors);
-  setCartCookie(data.cartCreate.cart.id);
+  await setCartCookie(data.cartCreate.cart.id);
   return data.cartCreate.cart;
 }
 
@@ -980,8 +992,7 @@ export async function addToCart(
   variantId: string,
   quantity: number
 ): Promise<Cart> {
-  "use server";
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   let cartId = cookieStore.get("cartId")?.value;
 
   if (!cartId) {
@@ -990,13 +1001,10 @@ export async function addToCart(
   }
 
   const { data } = await shopifyFetch<{
-    cartLinesAdd: { cart: Cart; userErrors: { field: string[]; message: string }[] };
+    cartLinesAdd: { cart: Cart; userErrors: UserError[] };
   }>({
     query: ADD_LINES_MUTATION,
-    variables: {
-      cartId,
-      lines: [{ merchandiseId: variantId, quantity }],
-    },
+    variables: { cartId, lines: [{ merchandiseId: variantId, quantity }] },
     cache: "no-store",
   });
   assertNoUserErrors(data.cartLinesAdd.userErrors);
@@ -1007,12 +1015,11 @@ export async function updateCartLine(
   lineId: string,
   quantity: number
 ): Promise<Cart> {
-  "use server";
-  const cartId = cookies().get("cartId")?.value;
+  const cartId = (await cookies()).get("cartId")?.value;
   if (!cartId) throw new Error("No cart found");
 
   const { data } = await shopifyFetch<{
-    cartLinesUpdate: { cart: Cart; userErrors: { field: string[]; message: string }[] };
+    cartLinesUpdate: { cart: Cart; userErrors: UserError[] };
   }>({
     query: UPDATE_LINES_MUTATION,
     variables: { cartId, lines: [{ id: lineId, quantity }] },
@@ -1023,12 +1030,11 @@ export async function updateCartLine(
 }
 
 export async function removeCartLine(lineId: string): Promise<Cart> {
-  "use server";
-  const cartId = cookies().get("cartId")?.value;
+  const cartId = (await cookies()).get("cartId")?.value;
   if (!cartId) throw new Error("No cart found");
 
   const { data } = await shopifyFetch<{
-    cartLinesRemove: { cart: Cart; userErrors: { field: string[]; message: string }[] };
+    cartLinesRemove: { cart: Cart; userErrors: UserError[] };
   }>({
     query: REMOVE_LINES_MUTATION,
     variables: { cartId, lineIds: [lineId] },
@@ -1039,18 +1045,19 @@ export async function removeCartLine(lineId: string): Promise<Cart> {
 }
 ```
 
-**Step 2: Type-check**
+**Step 3: Type-check**
 
 ```bash
 cd apps/web && npx tsc --noEmit
 ```
 Expected: 0 errors.
 
-**Step 3: Commit**
+**Step 4: Commit**
 
 ```bash
-git add apps/web/src/lib/shopify/mutations/cart.ts
-git commit -m "feat: add Shopify cart Server Actions (create, add, update, remove)"
+git add apps/web/src/lib/shopify/mutations/cart.ts \
+        apps/web/src/lib/shopify/mutations/cart-actions.ts
+git commit -m "feat: add Shopify cart query (cart.ts) and Server Actions (cart-actions.ts)"
 ```
 
 ---
@@ -1077,12 +1084,12 @@ import {
   useRef,
 } from "react";
 import type { Cart } from "@/lib/shopify/types";
+import { getCart } from "@/lib/shopify/mutations/cart";
 import {
   addToCart,
-  getCart,
   removeCartLine,
   updateCartLine,
-} from "@/lib/shopify/mutations/cart";
+} from "@/lib/shopify/mutations/cart-actions";
 
 interface CartState {
   cart: Cart | null;
@@ -1327,7 +1334,11 @@ export function CartProvider({
         if (cart) {
           dispatch({ type: "SET_CART", cart });
         } else {
-          dispatch({ type: "SET_ERROR", error: null }); // stale cookie — cart expired
+          // Stale cookie — cart expired on Shopify's end (~30 days inactivity).
+          // Clear it so the next addToCart creates a fresh cart instead of
+          // silently attempting to mutate a non-existent cart ID.
+          document.cookie = "cartId=; Max-Age=0; path=/";
+          dispatch({ type: "SET_ERROR", error: null });
         }
       })
       .catch(() => dispatch({ type: "SET_ERROR", error: null }));
