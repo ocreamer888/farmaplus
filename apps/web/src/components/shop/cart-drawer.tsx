@@ -11,10 +11,6 @@ export function CartDrawer() {
   const drawerRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    gsap.set(drawerRef.current, { x: "100%" });
-    gsap.set(overlayRef.current, { opacity: 0, pointerEvents: "none" });
-  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -37,6 +33,7 @@ export function CartDrawer() {
         ref={overlayRef}
         onClick={closeCart}
         className="fixed inset-0 z-30 bg-black/50"
+        style={{ opacity: 0, pointerEvents: "none" }}
         aria-hidden="true"
       />
 
@@ -46,6 +43,7 @@ export function CartDrawer() {
         aria-label="Carrito de compras"
         aria-modal="true"
         className="fixed right-0 top-0 z-40 flex h-full w-full max-w-md flex-col bg-[#222721] shadow-2xl"
+        style={{ transform: "translateX(100%)" }}
       >
         <div className="flex items-center justify-between border-b border-[#e0ddcf]/10 px-6 py-4">
           <h2 className="font-serif text-xl text-white">
