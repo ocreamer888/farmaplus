@@ -1,6 +1,7 @@
 "use client";
 
 import { CartProvider } from "./cart-context";
+import { CartDrawer } from "./cart-drawer";
 import { ErrorToast } from "./error-toast";
 
 export function Providers({
@@ -13,6 +14,7 @@ export function Providers({
   return (
     <CartProvider cartId={cartId}>
       {children}
+      <CartDrawer />
       <ErrorToast />
     </CartProvider>
   );
