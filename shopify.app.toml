@@ -1,0 +1,13 @@
+name = "FarmaPlus Headless"
+client_id = "9bc153442eb32cc26d45cd1b83abe1a3"
+application_url = "https://example.com"
+embedded = true
+
+[access_scopes]
+scopes = "unauthenticated_read_product_listings,unauthenticated_read_product_inventory,unauthenticated_read_collection_listings,unauthenticated_write_checkouts,unauthenticated_read_checkouts"
+
+[auth]
+redirect_urls = ["https://example.com/callback"]
+
+[webhooks]
+api_version = "2026-04"

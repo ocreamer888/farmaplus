@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { cookies } from "next/headers";
 import "./globals.css";
+import { Providers } from "@/components/shop/providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,15 +14,17 @@ export const metadata: Metadata = {
   description: "FarmaPlus web application",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cartId = (await cookies()).get("cartId")?.value;
+
   return (
-    <html lang="en">
+    <html lang="es">
       <body className={`${inter.variable} min-h-screen font-sans antialiased`}>
-        {children}
+        <Providers cartId={cartId}>{children}</Providers>
       </body>
     </html>
   );

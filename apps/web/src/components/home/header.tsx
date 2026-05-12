@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { HEADER_LOGO_SRC } from "./constants";
 import { WhatsAppButton } from "./whatsapp-button";
+import { MiniCartButton } from "@/components/shop/mini-cart-button";
 
 export function Header() {
   return (
@@ -22,7 +23,7 @@ export function Header() {
           >
             Contacto
           </WhatsAppButton>
-         
+          <MiniCartButton />
         </div>
       </div>
     </header>
