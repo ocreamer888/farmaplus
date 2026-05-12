@@ -16,7 +16,7 @@ export function ContactSection() {
           
           <div className="absolute inset-0 bg-[#222721]/35" />
           <div className="relative flex h-full w-full flex-col items-center justify-center p-6 md:p-10 lg:items-start lg:justify-end">
-            <h2 className="max-w-[14ch] text-center font-serif text-5xl leading-[0.95] text-[#fffff3] md:text-7xl lg:text-left lg:text-8xl text-balance">
+            <h2 className="max-w-[14ch] text-center font-serif text-5xl leading-[0.95] text-[#fffff3] md:text-7xl lg:text-left lg:text-6xl text-balance">
               Contacto
             </h2>
             <p className="mt-4 max-w-md text-center text-lg tracking-tight text-[#e0ddcf] lg:text-left">
