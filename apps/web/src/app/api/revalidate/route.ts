@@ -23,10 +23,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const topic = request.headers.get("X-Shopify-Topic") ?? "";
   const body = await request.text();
 
-  console.log("[revalidate] received", { topic, signaturePresent: Boolean(signature) });
-
   if (!verifyHmac(body, signature)) {
-    console.log("[revalidate] HMAC verification failed");
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
