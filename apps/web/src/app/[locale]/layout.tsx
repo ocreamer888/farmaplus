@@ -3,8 +3,11 @@ import { Inter } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import Script from "next/script";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
+
+const GA_ID = "G-SXJ76B849T";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -157,6 +160,20 @@ export default async function LocaleLayout({
 
   return (
     <html lang={inLanguage}>
+      <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}');
+          `}
+        </Script>
+      </head>
       <body className={`${inter.variable} min-h-screen font-sans antialiased`}>
         <script
           type="application/ld+json"
