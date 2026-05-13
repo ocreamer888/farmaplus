@@ -28,7 +28,7 @@ export function Header() {
           alt="FarmaPlus"
           width={167}
           height={22}
-          className="h-auto w-[130px] md:w-[167px] backdrop-blur p-2 rounded-full"
+          className="h-auto w-[130px] md:w-[167px] backdrop-blur p-2"
           priority
         />
 
