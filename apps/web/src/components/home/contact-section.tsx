@@ -7,9 +7,9 @@ export async function ContactSection() {
   const t = await getTranslations("contact");
 
   const serviceRows = [
-    { key: "pharmacy", label: t("services.pharmacy"), detail: "24/7", whatsappLink: "https://wa.me/50672355555" },
-    { key: "telemedicine", label: t("services.telemedicine"), detail: "WhatsApp", whatsappLink: "https://wa.me/50672355555" },
-    { key: "expressPharmacy", label: t("services.expressPharmacy"), detail: "WhatsApp", whatsappLink: "https://wa.me/50672355555" },
+    { key: "pharmacy", label: t("services.pharmacy"), detail: "24/7", whatsappLink: "https://wa.me/50687235555" },
+    { key: "telemedicine", label: t("services.telemedicine"), detail: "WhatsApp", whatsappLink: "https://wa.me/50687235555" },
+    { key: "expressPharmacy", label: t("services.expressPharmacy"), detail: "WhatsApp", whatsappLink: "https://wa.me/50687235555" },
   ];
 
   return (

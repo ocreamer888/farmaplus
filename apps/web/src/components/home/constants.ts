@@ -11,7 +11,7 @@ export const CONTACT: {
   mapsEmbedSrc: string;
 } = {
   address: "Cruce de Huacas, Guanacaste, Costa Rica",
-  phone: null,
+  phone: "+506 8723 5555",
   email: null,
   /** Google Maps embed (area search; not a verified storefront pin). */
   mapsEmbedSrc:

@@ -39,7 +39,8 @@
     }
   },
   "metadata": {
-    "title": "FarmaPlus",
-    "description": "Telemedicine, 24/7 pharmacy and express pharmacy in Huacas, Guanacaste."
+    "title": "FarmaPlus Huacas | Telemedicine and 24/7 pharmacy in Huacas, Guanacaste",
+    "titleTemplate": "%s | FarmaPlus Huacas",
+    "description": "FarmaPlus Huacas combines telemedicine, a 24/7 pharmacy and express delivery so you get timely, human care in Huacas, Guanacaste."
   }
 }
