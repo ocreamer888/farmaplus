@@ -4,10 +4,12 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTranslations } from "next-intl";
 
 import { SECTION_LOGO_SRC } from "./constants";
 
 export function StatementSection() {
+  const t = useTranslations("statement");
   const sectionRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
 
@@ -120,25 +122,24 @@ export function StatementSection() {
               data-statement-paragraph
               className="w-full max-w-[1500px] px-4 font-serif text-[40px] leading-[1.08] tracking-[-0.6px] text-[#e0ddcf] md:text-[64px] lg:text-[86px] lg:leading-[92.88px] lg:tracking-[-1.72px]"
             >
-              En salud, esperar no siempre es opción.
+              {t("line1")}
             </p>
             <p
               data-statement-paragraph
               className="w-full max-w-[1500px] px-4 font-serif text-[40px] leading-[1.08] tracking-[-0.6px] text-[#e0ddcf] md:text-[64px] lg:text-[86px] lg:leading-[92.88px] lg:tracking-[-1.72px]"
             >
-              FarmaPlus integra teleconsulta, farmacia 24/7 y servicio express
-              para que el cuidado sea continuo, accesible y humano.
+              {t("line2")}
             </p>
             <p
               data-statement-paragraph
               className="w-full max-w-[1500px] px-4 font-serif text-[40px] leading-[1.08] tracking-[-0.6px] text-[#e0ddcf] md:text-[64px] lg:text-[86px] lg:leading-[92.88px] lg:tracking-[-1.72px]"
             >
-              En Huacas, Guanacaste, creemos en una salud sin pausa.
+              {t("line3")}
             </p>
             <div data-statement-logo>
               <Image
                 src={SECTION_LOGO_SRC}
-                alt="FarmaPlus icono"
+                alt={t("logoAlt")}
                 width={527}
                 height={265}
                 loading="lazy"

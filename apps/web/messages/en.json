@@ -1,0 +1,45 @@
+{
+  "header": {
+    "contact": "Contact",
+    "switchLocale": "ES"
+  },
+  "hero": {
+    "headline1": "Health without pause.",
+    "headline2": "Intelligent care.",
+    "subtitle": "Telemedicine, 24/7 pharmacy and express pharmacy in Huacas, Guanacaste.",
+    "whatsappAriaLabel": "Open WhatsApp"
+  },
+  "statement": {
+    "line1": "In health, waiting is not always an option.",
+    "line2": "FarmaPlus integrates teleconsultation, 24/7 pharmacy and express service so that care is continuous, accessible and human.",
+    "line3": "In Huacas, Guanacaste, we believe in health without pause.",
+    "logoAlt": "FarmaPlus icon"
+  },
+  "consultation": {
+    "headline1": "Teleconsultation",
+    "headline2": "at the distance",
+    "headline3": "of a click",
+    "subtitle": "Don't let your health wait. Our team of doctors attends you online to resolve your doubts and provide the best care.",
+    "doctorAlt": "Doctor Javier Leon - FarmaPlus Huacas"
+  },
+  "contact": {
+    "sectionTitle": "Contact",
+    "sectionSubtitle": "Telemedicine, 24/7 pharmacy and express pharmacy in Huacas, Guanacaste.",
+    "servicesTitle": "Services",
+    "contactDetailsTitle": "Contact information",
+    "locationLabel": "Location",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "mapTitle": "Map — Huacas, Guanacaste",
+    "whatsappAriaLabel": "Open WhatsApp",
+    "services": {
+      "pharmacy": "Pharmacy",
+      "telemedicine": "Telemedicine",
+      "expressPharmacy": "Express pharmacy"
+    }
+  },
+  "metadata": {
+    "title": "FarmaPlus",
+    "description": "Telemedicine, 24/7 pharmacy and express pharmacy in Huacas, Guanacaste."
+  }
+}

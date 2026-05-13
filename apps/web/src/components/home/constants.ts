@@ -17,9 +17,3 @@ export const CONTACT: {
   mapsEmbedSrc:
     "https://maps.google.com/maps?q=Huacas%2C%20Santa%20Cruz%2C%20Guanacaste%2C%20Costa%20Rica&hl=es&z=12&ie=UTF8&iwloc=&output=embed",
 };
-
-export const CONTACT_SERVICE_ROWS: { label: string; detail: string; whatsappLink: string }[] = [
-  { label: "Farmacia", detail: "24/7", whatsappLink: "https://wa.me/50672355555" },
-  { label: "Telemedicina", detail: "WhatsApp", whatsappLink: "https://wa.me/50672355555" },
-  { label: "Farmacia express", detail: "WhatsApp", whatsappLink: "https://wa.me/50672355555" },
-];

@@ -1,8 +1,11 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
 import { WhatsAppButton } from "./whatsapp-button";
 
-export function ConsultationSection() {
+export async function ConsultationSection() {
+  const t = await getTranslations("consultation");
+
   return (
     <section className="relative z-10 px-4 pb-16 md:px-10 md:pb-24 py-24">
       <div
@@ -14,15 +17,15 @@ export function ConsultationSection() {
       >
         <div className="flex flex-col items-center justify-end lg:justify-start z-10 gap-4 lg:h-[600px] max-w-[795px]">
           <h2 className="font-serif text-[52px] leading-[0.9] text-white md:text-[80px] lg:text-[82px] lg:leading-[0.9] xl:text-[80px]">
-            Teleconsulta
+            {t("headline1")}
             <br />
-            a la distancia
+            {t("headline2")}
             <br />
-            de un click
+            {t("headline3")}
           </h2>
 
           <p className="px-8 max-w-[492px] text-base text-[#e0ddcf] md:text-[20px] md:leading-[28.6px] md:tracking-[-0.84px]">
-            Qué tu salud no espere. Nuestro equipo de médicos te atiende en línea para resolver tus dudas y brindarte la mejor atención.
+            {t("subtitle")}
           </p>
 
           <WhatsAppButton
@@ -35,7 +38,7 @@ export function ConsultationSection() {
         <div className="relative flex w-full justify-center mt-16 lg:flex-1 lg:justify-center">
           <Image
             src="/dr-javier-leon-farmaplus-huacas.png"
-            alt="Doctor Javier Leon - FarmaPlus Huacas"
+            alt={t("doctorAlt")}
             width={832}
             height={1008}
             loading="lazy"

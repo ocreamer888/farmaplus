@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 type WhatsAppButtonProps = {
   className?: string;
   children?: ReactNode;
+  ariaLabel?: string;
 };
 
 const WHATSAPP_NUMBER = "50687235555";
@@ -11,6 +12,7 @@ const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 export function WhatsAppButton({
   className,
   children = "WhatsApp",
+  ariaLabel = "WhatsApp",
 }: WhatsAppButtonProps) {
   return (
     <a
@@ -18,7 +20,7 @@ export function WhatsAppButton({
       target="_blank"
       rel="noreferrer"
       className={className}
-      aria-label="Abrir WhatsApp"
+      aria-label={ariaLabel}
     >
       {children}
     </a>

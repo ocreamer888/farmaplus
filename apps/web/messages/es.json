@@ -1,0 +1,45 @@
+{
+  "header": {
+    "contact": "Contacto",
+    "switchLocale": "EN"
+  },
+  "hero": {
+    "headline1": "Salud sin pausa.",
+    "headline2": "Cuidado inteligente.",
+    "subtitle": "Telemedicina, farmacia 24/7 y farmacia express en Huacas, Guanacaste.",
+    "whatsappAriaLabel": "Abrir WhatsApp"
+  },
+  "statement": {
+    "line1": "En salud, esperar no siempre es opción.",
+    "line2": "FarmaPlus integra teleconsulta, farmacia 24/7 y servicio express para que el cuidado sea continuo, accesible y humano.",
+    "line3": "En Huacas, Guanacaste, creemos en una salud sin pausa.",
+    "logoAlt": "FarmaPlus icono"
+  },
+  "consultation": {
+    "headline1": "Teleconsulta",
+    "headline2": "a la distancia",
+    "headline3": "de un click",
+    "subtitle": "Qué tu salud no espere. Nuestro equipo de médicos te atiende en línea para resolver tus dudas y brindarte la mejor atención.",
+    "doctorAlt": "Doctor Javier Leon - FarmaPlus Huacas"
+  },
+  "contact": {
+    "sectionTitle": "Contacto",
+    "sectionSubtitle": "Telemedicina, farmacia 24/7 y farmacia express en Huacas, Guanacaste.",
+    "servicesTitle": "Servicios",
+    "contactDetailsTitle": "Datos de contacto",
+    "locationLabel": "Ubicación",
+    "phoneLabel": "Teléfono",
+    "emailLabel": "Correo",
+    "mapTitle": "Mapa — Huacas, Guanacaste",
+    "whatsappAriaLabel": "Abrir WhatsApp",
+    "services": {
+      "pharmacy": "Farmacia",
+      "telemedicine": "Telemedicina",
+      "expressPharmacy": "Farmacia express"
+    }
+  },
+  "metadata": {
+    "title": "FarmaPlus",
+    "description": "Telemedicina, farmacia 24/7 y farmacia express en Huacas, Guanacaste."
+  }
+}

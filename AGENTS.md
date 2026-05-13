@@ -14,3 +14,6 @@
 - Brain MCP is configured and reachable in this workspace context via `user-brain`.
 - Local reference repos for UI work include `/Users/Shared/Code/ocreamerstudio` (GSAP/ScrollTrigger and section composition) and `/Users/Shared/Code/lechandelier-restaurant` (e.g. home contact grid layout).
 - Brand messaging for site copy is documented in `docs/farmaplus-brand-message-final.md`.
+- Primary Git remote is `https://github.com/ocreamer888/farmaplus.git` (`origin`).
+- Headless Shopify / ecommerce work is kept on branch `feature/shopify-ecommerce`; `main` is the marketing site without Shopify until legal clearance.
+- Next.js serves static URLs from `apps/web/public` only; paths must not assume files at the monorepo root are web-accessible.

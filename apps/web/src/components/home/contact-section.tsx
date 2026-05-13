@@ -1,7 +1,17 @@
-import { CONTACT, CONTACT_SERVICE_ROWS } from "./constants";
+import { getTranslations } from "next-intl/server";
+
+import { CONTACT } from "./constants";
 import { WhatsAppButton } from "./whatsapp-button";
 
-export function ContactSection() {
+export async function ContactSection() {
+  const t = await getTranslations("contact");
+
+  const serviceRows = [
+    { key: "pharmacy", label: t("services.pharmacy"), detail: "24/7", whatsappLink: "https://wa.me/50672355555" },
+    { key: "telemedicine", label: t("services.telemedicine"), detail: "WhatsApp", whatsappLink: "https://wa.me/50672355555" },
+    { key: "expressPharmacy", label: t("services.expressPharmacy"), detail: "WhatsApp", whatsappLink: "https://wa.me/50672355555" },
+  ];
+
   return (
     <section
       id="contact"
@@ -13,14 +23,14 @@ export function ContactSection() {
           backgroundImage:
             "linear-gradient(344deg, rgba(33, 64, 29, 0.2) 14.951%, rgba(76, 120, 57, 0.2) 81.354%)",
         }}>
-          
+
           <div className="absolute inset-0 bg-[#222721]/35" />
           <div className="relative flex h-full w-full flex-col items-center justify-center p-6 md:p-10 lg:items-start lg:justify-end">
             <h2 className="max-w-[14ch] text-center font-serif text-5xl leading-[0.95] text-[#fffff3] md:text-7xl lg:text-left lg:text-6xl text-balance">
-              Contacto
+              {t("sectionTitle")}
             </h2>
             <p className="mt-4 max-w-md text-center text-lg tracking-tight text-[#e0ddcf] lg:text-left">
-              Telemedicina, farmacia 24/7 y farmacia express en Huacas, Guanacaste.
+              {t("sectionSubtitle")}
             </p>
           </div>
         </div>
@@ -32,21 +42,18 @@ export function ContactSection() {
             "linear-gradient(344deg, rgba(33, 64, 29, 0.2) 14.951%, rgba(76, 120, 57, 0.2) 81.354%)",
         }}>
               <h3 className="mb-8 flex w-full justify-center text-2xl font-light text-[#fffff3] md:justify-start">
-                Servicios
+                {t("servicesTitle")}
               </h3>
               <div className="space-y-4">
-                {CONTACT_SERVICE_ROWS.map((row) => (
-                  <a key={row.label} href={row.whatsappLink} target="_blank" rel="noreferrer">
-                  <div
-                    key={row.label}
-                    className="flex items-center justify-between text-[#e0ddcf]"
-                  >
-                    <span className="text-sm tracking-wide md:text-base">
-                      {row.label}
-                    </span>
-                    <span className="mx-3 flex-1 border-b border-dotted border-[#408733]/40" />
-                    <span className="text-sm font-light md:text-base">
-                      {row.detail}
+                {serviceRows.map((row) => (
+                  <a key={row.key} href={row.whatsappLink} target="_blank" rel="noreferrer">
+                    <div className="flex items-center justify-between text-[#e0ddcf]">
+                      <span className="text-sm tracking-wide md:text-base">
+                        {row.label}
+                      </span>
+                      <span className="mx-3 flex-1 border-b border-dotted border-[#408733]/40" />
+                      <span className="text-sm font-light md:text-base">
+                        {row.detail}
                       </span>
                     </div>
                   </a>
@@ -56,7 +63,7 @@ export function ContactSection() {
 
             <div className="relative min-h-[280px] flex-1 overflow-hidden rounded-[42px] border border-[#e0ddcf]/10 md:min-h-[300px]">
               <iframe
-                title="Mapa — Huacas, Guanacaste"
+                title={t("mapTitle")}
                 src={CONTACT.mapsEmbedSrc}
                 width="100%"
                 height="100%"
@@ -74,12 +81,12 @@ export function ContactSection() {
             "linear-gradient(344deg, rgba(33, 64, 29, 0.2) 14.951%, rgba(76, 120, 57, 0.2) 81.354%)",
         }}>
             <h3 className="mb-8 text-center text-2xl font-light text-[#fffff3] md:text-3xl">
-              Datos de contacto
+              {t("contactDetailsTitle")}
             </h3>
             <div className="flex w-full flex-col h-full justify-center gap-6 text-[#e0ddcf]">
               <div className="flex w-full flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
                 <p className="text-xs tracking-wider text-[#e0ddcf]/60">
-                  Ubicación
+                  {t("locationLabel")}
                 </p>
                 <span className="mx-3 flex-1 border-b border-dotted border-[#408733]/40" />
                 <p className="text-base md:text-lg">{CONTACT.address}</p>
@@ -88,7 +95,7 @@ export function ContactSection() {
               {CONTACT.phone ? (
                 <div className="flex w-full flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-xs tracking-wider text-[#e0ddcf]/60">
-                    Teléfono
+                    {t("phoneLabel")}
                   </p>
                   <a
                     href={`tel:${CONTACT.phone.replace(/\s/g, "")}`}
@@ -102,7 +109,7 @@ export function ContactSection() {
               {CONTACT.email ? (
                 <div className="flex w-full flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-xs tracking-wider text-[#e0ddcf]/60">
-                    Correo
+                    {t("emailLabel")}
                   </p>
                   <a
                     href={`mailto:${CONTACT.email}`}
@@ -119,9 +126,11 @@ export function ContactSection() {
                 </p>
                 <span className="mx-3 flex-1 border-b border-dotted border-[#408733]/40" />
                 <WhatsAppButton
-              className="flex h-[56px] w-[70%] items-center justify-center rounded-[62px] bg-[#408733] text-[15px] text-[#eceadd]">
-                WhatsApp
-              </WhatsAppButton>
+                  ariaLabel={t("whatsappAriaLabel")}
+                  className="flex h-[56px] w-[70%] items-center justify-center rounded-[62px] bg-[#408733] text-[15px] text-[#eceadd]"
+                >
+                  WhatsApp
+                </WhatsAppButton>
               </div>
             </div>
           </div>

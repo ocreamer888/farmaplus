@@ -1,8 +1,11 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
 import { WhatsAppButton } from "./whatsapp-button";
 
-export function HeroSection() {
+export async function HeroSection() {
+  const t = await getTranslations("hero");
+
   return (
     <section className="px-6 pb-20 pt-14 md:px-10 md:pt-16">
       <div className="mx-auto flex w-full max-w-[1500px] flex-col items-center gap-8 text-center">
@@ -15,9 +18,9 @@ export function HeroSection() {
             className="absolute -left-12 -top-10 hidden size-[72px] md:block md:size-[116px]"
           />
           <h1 className="font-serif text-[44px] leading-[1.1] text-white md:text-[80px] lg:text-[120px] text-balance">
-            Salud sin pausa.
+            {t("headline1")}
             <br />
-            Cuidado inteligente.
+            {t("headline2")}
           </h1>
           <Image
             src="/pill-circle.webp"
@@ -29,11 +32,14 @@ export function HeroSection() {
         </div>
 
         <p className="max-w-[580px] text-xl font-medium tracking-[-0.4px] text-[#e0ddcf] md:text-[26px] md:leading-[28.6px] md:tracking-[-0.84px]">
-          Telemedicina, farmacia 24/7 y farmacia express en Huacas, Guanacaste.
+          {t("subtitle")}
         </p>
 
         <div className="flex w-full max-w-[376px] items-center gap-1 rounded-[10px] p-1">
-          <WhatsAppButton className="flex h-[56px] w-full items-center justify-center rounded-[62px] bg-[#408733] hover:bg-[#336629] text-[15px] text-[#eceadd]" aria-label="Abrir WhatsApp">
+          <WhatsAppButton
+            className="flex h-[56px] w-full items-center justify-center rounded-[62px] bg-[#408733] hover:bg-[#336629] text-[15px] text-[#eceadd]"
+            ariaLabel={t("whatsappAriaLabel")}
+          >
             WhatsApp
           </WhatsAppButton>
         </div>
