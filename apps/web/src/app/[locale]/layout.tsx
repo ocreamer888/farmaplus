@@ -41,8 +41,8 @@ export async function generateMetadata({
       },
     },
     icons: {
-      icon: "/FarmaPlus-logo.svg",
-      apple: "/FarmaPlus-logo.png",
+      icon: "/farmaplus-cross.png",
+      apple: "/farmaplus-cross.png",
     },
     openGraph: {
       type: "website",
