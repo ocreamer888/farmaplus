@@ -160,7 +160,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={inLanguage}>
-      <head>
+      <body className={`${inter.variable} min-h-screen font-sans antialiased`}>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"
@@ -173,8 +173,6 @@ export default async function LocaleLayout({
             gtag('config', '${GA_ID}');
           `}
         </Script>
-      </head>
-      <body className={`${inter.variable} min-h-screen font-sans antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
