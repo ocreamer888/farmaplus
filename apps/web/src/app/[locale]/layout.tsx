@@ -40,10 +40,6 @@ export async function generateMetadata({
         "x-default": `${BASE_URL}/es`,
       },
     },
-    icons: {
-      icon: "/farmaplus-cross.png",
-      apple: "/farmaplus-cross.png",
-    },
     openGraph: {
       type: "website",
       locale: locale === "es" ? "es_CR" : "en_US",
